@@ -24,6 +24,27 @@ function SVGOverlay() {
     console.log(e.target);
   }
 
+  function isValidBlock(row: number, col: number) {
+    return validBlocks.some(([r, c]) => r === row && c === col);
+  }
+
+  const validBlocks = [
+    [0, 1],
+    [0, 2],
+    [0, 3],
+    [0, 4],
+    [1, 1],
+    [1, 4],
+    [2, 0],
+    [3, 0],
+    [3, 4],
+    [4, 0],
+    [4, 1],
+    [4, 2],
+    [4, 3],
+    [4, 4],
+  ];
+
   const blockSize = 44;
   const gapX = 3.5;
   const gapY = 3.0;
@@ -33,15 +54,17 @@ function SVGOverlay() {
   return (
     <svg className={styles.overlay} width={250} height={250}>
       {range(5).map((row) =>
-        range(5).map((col) => (
-          <rect
-            key={`${row}-${col}`}
-            x={startX + col * blockSize + (col - 1) * gapX}
-            y={startY + row * blockSize + (row - 1) * gapY}
-            width={blockSize}
-            height={blockSize}
-          />
-        ))
+        range(5).map((col) =>
+          isValidBlock(row, col) ? (
+            <rect
+              key={`${row}-${col}`}
+              x={startX + col * blockSize + (col - 1) * gapX}
+              y={startY + row * blockSize + (row - 1) * gapY}
+              width={blockSize}
+              height={blockSize}
+            />
+          ) : null
+        )
       )}
     </svg>
   );
