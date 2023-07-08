@@ -15,3 +15,16 @@
 .overlayBlock {
   fill: rgba(0, 255, 255, 0.407);
 }
+
+$blockSize: 44px;
+
+.block {
+  width: $blockSize;
+  height: $blockSize;
+  background-image: url(/images/minigame.png);
+  background-size: 250px;
+}
+
+.diamond_100_5000 {
+  background-position: -55px -9px;
+}
