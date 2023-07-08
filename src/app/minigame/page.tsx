@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 import { useState } from "react";
 import { Slayer } from "./slayer.tsx";
 import { GameBoard } from "./board.tsx";
-import { Providers } from "./providers.tsx";
+import { Providers } from "./context.tsx";
 import { Position } from "./types.tsx";
 
 export default function Home() {

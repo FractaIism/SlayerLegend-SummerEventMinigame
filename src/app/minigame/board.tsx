@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { useContext } from "react";
 import { range } from "lodash";
-import { GlobalVariableContext } from "./providers.tsx";
+import { GlobalVariableContext } from "./context.tsx";
 import { Position } from "./types.tsx";
 
 export function GameBoard({
@@ -31,13 +31,12 @@ function SVGOverlay({
   setSlayerPosition: (position: Position) => void;
 }) {
   function blockExists(row: number, col: number) {
-    return validPositions.some(({row: r, col: c}) => r === row && c === col);
+    return validPositions.some(({ row: r, col: c }) => r === row && c === col);
   }
 
   const { startX, startY, blockSize, gapX, gapY, validPositions } = useContext(
     GlobalVariableContext
   );
-
 
   return (
     <svg className={styles.overlay} width={250} height={250}>

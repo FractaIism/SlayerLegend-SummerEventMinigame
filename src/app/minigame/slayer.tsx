@@ -3,7 +3,7 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import { useContext } from "react";
-import { GlobalVariableContext } from "./providers";
+import { GlobalVariableContext } from "./context.tsx";
 import { Position } from "./types.tsx";
 
 export function Slayer({ position }: { position: Position }) {
