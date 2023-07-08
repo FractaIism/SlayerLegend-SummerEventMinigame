@@ -11,7 +11,7 @@ export const GlobalVariableContext = createContext({
   startY: 12,
 });
 
-export default function Providers({ children }: { children: ReactNode }) {
+export function Providers({ children }: { children: ReactNode }) {
   const globalVarContext = useContext(GlobalVariableContext);
 
   return (

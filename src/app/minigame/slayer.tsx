@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
 
-export default function Slayer({ row, col }: { row: number; col: number }) {
+export function Slayer({ row, col }: { row: number; col: number }) {
   const slayer = {
     baseWidth: 84,
     baseHeight: 122,

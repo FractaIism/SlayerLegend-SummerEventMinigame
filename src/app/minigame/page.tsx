@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import styles from "./page.module.css";
-import Slayer from "./slayer.tsx";
-import GameBoard from "./board.tsx";
-import Providers from "./providers.tsx";
+import { useState } from "react";
+import { Slayer } from "./slayer.tsx";
+import { GameBoard } from "./board.tsx";
+import { Providers } from "./providers.tsx";
 
 export default function Home() {
   function moveSlayerTo(row: number, col: number) {

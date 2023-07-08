@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useContext } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
+import { useContext } from "react";
 import { range } from "lodash";
 import { GlobalVariableContext } from "./providers.tsx";
 
-export default function GameBoard({
+export function GameBoard({
   moveSlayerTo,
 }: {
   moveSlayerTo: (row: number, col: number) => void;
