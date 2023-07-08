@@ -7,8 +7,8 @@ export const GlobalVariableContext = createContext({
   blockSize: 44,
   gapX: 3.5,
   gapY: 3.0,
-  startX: 11,
-  startY: 12,
+  startX: 7.5,
+  startY: 9.0,
 });
 
 export function Providers({ children }: { children: ReactNode }) {

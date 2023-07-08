@@ -61,8 +61,8 @@ function SVGOverlay({
           isValidBlock(row, col) ? (
             <rect
               key={`${row}-${col}`}
-              x={startX + col * blockSize + (col - 1) * gapX}
-              y={startY + row * blockSize + (row - 1) * gapY}
+              x={startX + col * (blockSize + gapX)}
+              y={startY + row * (blockSize + gapY)}
               width={blockSize}
               height={blockSize}
               onClick={() => moveSlayerTo(row, col)}
