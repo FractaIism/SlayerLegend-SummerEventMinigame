@@ -7,6 +7,8 @@ import { range } from "lodash";
 import { GlobalVariableContext } from "./context.tsx";
 import { Position } from "./types.tsx";
 
+const boardSize = 250;
+
 export function GameBoard({
   setSlayerPosition,
   children,
@@ -19,8 +21,8 @@ export function GameBoard({
       <Image
         src="/images/minigame.png"
         alt="minigame.png"
-        width={250}
-        height={250}
+        width={boardSize}
+        height={boardSize}
       />
       <SVGOverlay setSlayerPosition={setSlayerPosition} />
       {children}
@@ -42,7 +44,7 @@ function SVGOverlay({
   );
 
   return (
-    <svg className={styles.overlay} width={250} height={250}>
+    <svg className={styles.overlay} width={boardSize} height={boardSize}>
       {range(5).map((row) =>
         range(5).map((col) =>
           blockExists(row, col) ? (
