@@ -11,7 +11,7 @@ export default function Home() {
     setSlayerPosition({ row: row, col: col });
   }
 
-  const [slayerPosition, setSlayerPosition] = useState({ row: 0, col: 0 });
+  const [slayerPosition, setSlayerPosition] = useState({ row: 4, col: 4 });
 
   return (
     <main className={styles.main}>
