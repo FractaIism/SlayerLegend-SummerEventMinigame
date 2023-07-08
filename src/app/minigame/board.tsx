@@ -2,15 +2,17 @@
 
 import Image from "next/image";
 import styles from "./page.module.css";
-import { useContext } from "react";
+import { useContext, ReactNode } from "react";
 import { range } from "lodash";
 import { GlobalVariableContext } from "./context.tsx";
 import { Position } from "./types.tsx";
 
 export function GameBoard({
   setSlayerPosition,
+  children,
 }: {
   setSlayerPosition: (position: Position) => void;
+  children: ReactNode;
 }) {
   return (
     <>
@@ -21,6 +23,7 @@ export function GameBoard({
         height={250}
       />
       <SVGOverlay setSlayerPosition={setSlayerPosition} />
+      {children}
     </>
   );
 }

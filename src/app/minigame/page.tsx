@@ -16,8 +16,9 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Providers>
-        <GameBoard setSlayerPosition={setSlayerPosition} />
-        <Slayer position={slayerPosition} />
+        <GameBoard setSlayerPosition={setSlayerPosition}>
+          <Slayer position={slayerPosition} />
+        </GameBoard>
       </Providers>
     </main>
   );
