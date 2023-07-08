@@ -13,6 +13,7 @@ export function Slayer({ row, col }: { row: number; col: number }) {
     baseHeight: 122,
     scaleFactor: 0.26,
   };
+  const faceLeft = (row + col > 4 || col === 4);
 
   function rowToCssTop(row: number): number {
     const blockTop = ctx.startY + row * (ctx.blockSize + ctx.gapY);
@@ -36,6 +37,7 @@ export function Slayer({ row, col }: { row: number; col: number }) {
       style={{
         left: colToCssLeft(col),
         top: rowToCssTop(row),
+        scale: faceLeft ? "1 1" : "-1 1",
       }}
     />
   );
