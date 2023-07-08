@@ -17,7 +17,7 @@ export function Slayer({ row, col }: { row: number; col: number }) {
   function rowToCssTop(row: number): number {
     const blockTop = ctx.startY + row * (ctx.blockSize + ctx.gapY);
     const slayerHeight = slayer.baseHeight * slayer.scaleFactor;
-    return blockTop + ctx.blockSize / 2 - slayerHeight / 2;
+    return blockTop + ctx.blockSize / 2 - slayerHeight * (4/5);
   }
 
   function colToCssLeft(col: number): number {
