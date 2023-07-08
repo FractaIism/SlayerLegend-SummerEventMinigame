@@ -30,36 +30,20 @@ function SVGOverlay({
 }: {
   setSlayerPosition: (position: Position) => void;
 }) {
-  function isValidBlock(row: number, col: number) {
-    return validBlocks.some(([r, c]) => r === row && c === col);
+  function blockExists(row: number, col: number) {
+    return validPositions.some(({row: r, col: c}) => r === row && c === col);
   }
 
-  const { startX, startY, blockSize, gapX, gapY } = useContext(
+  const { startX, startY, blockSize, gapX, gapY, validPositions } = useContext(
     GlobalVariableContext
   );
 
-  const validBlocks = [
-    [0, 1],
-    [0, 2],
-    [0, 3],
-    [0, 4],
-    [1, 1],
-    [1, 4],
-    [2, 0],
-    [3, 0],
-    [3, 4],
-    [4, 0],
-    [4, 1],
-    [4, 2],
-    [4, 3],
-    [4, 4],
-  ];
 
   return (
     <svg className={styles.overlay} width={250} height={250}>
       {range(5).map((row) =>
         range(5).map((col) =>
-          isValidBlock(row, col) ? (
+          blockExists(row, col) ? (
             <rect
               className={styles.overlayBlock}
               key={`${row}-${col}`}
