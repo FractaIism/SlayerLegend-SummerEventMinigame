@@ -11,12 +11,8 @@ export default function Slayer() {
     baseWidth: 84,
     baseHeight: 122,
     scaleFactor: 0.4,
-    getWidth: function () {
-      return this.baseWidth * this.scaleFactor;
-    },
-    getHeight: function () {
-      return this.baseHeight * this.scaleFactor;
-    },
+    getWidth() { return this.baseWidth * this.scaleFactor; },
+    getHeight() { return this.baseHeight * this.scaleFactor; },
   }
 
   function moveSlayer(top: number, left: number) {
