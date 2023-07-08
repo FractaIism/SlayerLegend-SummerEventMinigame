@@ -1,12 +1,8 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import Slayer from "./slayer.tsx";
 
 export default function Home() {
-  const slayer = {
-    baseWidth: 84,
-    baseHeight: 122,
-    scaleFactor: 0.4,
-  }
 
   return (
     <main className={styles.main}>
@@ -16,13 +12,7 @@ export default function Home() {
         width={250}
         height={250}
       />
-      <Image
-        className={styles.slayer}
-        src="/images/slayer_summer.png"
-        width={slayer.baseWidth * slayer.scaleFactor}
-        height={slayer.baseHeight * slayer.scaleFactor}
-        alt="slayer_summer.png"
-      />
+      <Slayer />
     </main>
   );
 }
