@@ -13,3 +13,7 @@
   /* background-color: aqua; */
   /* visibility: hidden; */
 }
+
+.overlayBlock {
+  fill: rgba(0, 255, 255, 0.407);
+}

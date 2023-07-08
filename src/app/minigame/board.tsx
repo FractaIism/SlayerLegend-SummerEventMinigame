@@ -60,6 +60,7 @@ function SVGOverlay({
         range(5).map((col) =>
           isValidBlock(row, col) ? (
             <rect
+              className={styles.overlayBlock}
               key={`${row}-${col}`}
               x={startX + col * (blockSize + gapX)}
               y={startY + row * (blockSize + gapY)}

@@ -2,20 +2,28 @@
 
 import Image from "next/image";
 import styles from "./page.module.css";
+import { useContext } from "react";
+import { GlobalVariableContext } from "./providers";
 
 export function Slayer({ row, col }: { row: number; col: number }) {
+  const ctx = useContext(GlobalVariableContext);
+
   const slayer = {
     baseWidth: 84,
     baseHeight: 122,
-    scaleFactor: 0.4,
+    scaleFactor: 0.26,
   };
 
   function rowToCssTop(row: number): number {
-    return row;
+    const blockTop = ctx.startY + row * (ctx.blockSize + ctx.gapY);
+    const slayerHeight = slayer.baseHeight * slayer.scaleFactor;
+    return blockTop + ctx.blockSize / 2 - slayerHeight / 2;
   }
 
   function colToCssLeft(col: number): number {
-    return col;
+    const blockLeft = ctx.startX + col * (ctx.blockSize + ctx.gapX);
+    const slayerWidth = slayer.baseWidth * slayer.scaleFactor;
+    return blockLeft + ctx.blockSize / 2 - slayerWidth / 2;
   }
 
   return (
