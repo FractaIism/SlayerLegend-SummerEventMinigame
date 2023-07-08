@@ -1,24 +1,30 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
 
-export default function Slayer() {
-  const [position, setPosition] = useState({ top: 0, left: 0 });
-
+export default function Slayer({ row, col }: { row: number; col: number }) {
   const slayer = {
     baseWidth: 84,
     baseHeight: 122,
     scaleFactor: 0.4,
-    getWidth() { return this.baseWidth * this.scaleFactor; },
-    getHeight() { return this.baseHeight * this.scaleFactor; },
+    getWidth() {
+      return this.baseWidth * this.scaleFactor;
+    },
+    getHeight() {
+      return this.baseHeight * this.scaleFactor;
+    },
+  };
+
+  function rowToCssTop(row: number): number {
+    return row;
   }
 
-  function moveSlayer(top: number, left: number) {
-    
+  function colToCssLeft(col: number): number {
+    return col;
   }
-  
+
   return (
     <Image
       className={styles.slayer}
@@ -26,6 +32,10 @@ export default function Slayer() {
       width={slayer.getWidth()}
       height={slayer.getHeight()}
       alt="slayer_summer.png"
+      style={{
+        left: colToCssLeft(col),
+        top: rowToCssTop(row),
+      }}
     />
   );
 }

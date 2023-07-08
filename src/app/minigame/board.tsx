@@ -1,11 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
 import { range } from "lodash";
 
-export default function GameBoard() {
+export default function GameBoard({
+  moveSlayerTo,
+}: {
+  moveSlayerTo: (row: number, col: number) => void;
+}) {
   return (
     <>
       <Image
@@ -14,12 +18,16 @@ export default function GameBoard() {
         width={250}
         height={250}
       />
-      <SVGOverlay />
+      <SVGOverlay moveSlayerTo={moveSlayerTo} />
     </>
   );
 }
 
-function SVGOverlay() {
+function SVGOverlay({
+  moveSlayerTo,
+}: {
+  moveSlayerTo: (row: number, col: number) => void;
+}) {
   function handleClick(e: React.MouseEvent<SVGRectElement>) {
     console.log(e.target);
   }
@@ -62,6 +70,7 @@ function SVGOverlay() {
               y={startY + row * blockSize + (row - 1) * gapY}
               width={blockSize}
               height={blockSize}
+              onClick={() => moveSlayerTo(row, col)}
             />
           ) : null
         )
