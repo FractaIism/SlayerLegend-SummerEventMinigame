@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import styles from "./page.module.css";
+import styles from "./page.module.scss";
 import { useContext, ReactNode } from "react";
 import { range } from "lodash";
 import { GlobalVariableContext } from "./context.tsx";
@@ -43,6 +43,11 @@ function SVGOverlay({
     GlobalVariableContext
   );
 
+  // range(5).map((row) =>
+  //   range(5).map((col) => blockExists(row, col)
+  //     && console.log(startX+col*(blockSize+gapX), startY+row*(blockSize+gapY))
+  //   )
+  // );
   return (
     <svg className={styles.overlay} width={boardSize} height={boardSize}>
       {range(5).map((row) =>
