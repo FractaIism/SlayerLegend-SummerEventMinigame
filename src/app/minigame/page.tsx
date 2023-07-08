@@ -5,19 +5,19 @@ import { useState } from "react";
 import { Slayer } from "./slayer.tsx";
 import { GameBoard } from "./board.tsx";
 import { Providers } from "./providers.tsx";
+import { Position } from "./types.tsx";
 
 export default function Home() {
-  function moveSlayerTo(row: number, col: number) {
-    setSlayerPosition({ row: row, col: col });
-  }
-
-  const [slayerPosition, setSlayerPosition] = useState({ row: 4, col: 4 });
+  const [slayerPosition, setSlayerPosition]: [Position, any] = useState({
+    row: 4,
+    col: 4,
+  });
 
   return (
     <main className={styles.main}>
       <Providers>
-        <GameBoard moveSlayerTo={moveSlayerTo} />
-        <Slayer row={slayerPosition.row} col={slayerPosition.col} />
+        <GameBoard setSlayerPosition={setSlayerPosition} />
+        <Slayer position={slayerPosition} />
       </Providers>
     </main>
   );

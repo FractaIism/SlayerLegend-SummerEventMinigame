@@ -5,11 +5,12 @@ import styles from "./page.module.css";
 import { useContext } from "react";
 import { range } from "lodash";
 import { GlobalVariableContext } from "./providers.tsx";
+import { Position } from "./types.tsx";
 
 export function GameBoard({
-  moveSlayerTo,
+  setSlayerPosition,
 }: {
-  moveSlayerTo: (row: number, col: number) => void;
+  setSlayerPosition: (position: Position) => void;
 }) {
   return (
     <>
@@ -19,15 +20,15 @@ export function GameBoard({
         width={250}
         height={250}
       />
-      <SVGOverlay moveSlayerTo={moveSlayerTo} />
+      <SVGOverlay setSlayerPosition={setSlayerPosition} />
     </>
   );
 }
 
 function SVGOverlay({
-  moveSlayerTo,
+  setSlayerPosition,
 }: {
-  moveSlayerTo: (row: number, col: number) => void;
+  setSlayerPosition: (position: Position) => void;
 }) {
   function isValidBlock(row: number, col: number) {
     return validBlocks.some(([r, c]) => r === row && c === col);
@@ -66,7 +67,7 @@ function SVGOverlay({
               y={startY + row * (blockSize + gapY)}
               width={blockSize}
               height={blockSize}
-              onClick={() => moveSlayerTo(row, col)}
+              onClick={() => setSlayerPosition({ row: row, col: col })}
             />
           ) : null
         )
