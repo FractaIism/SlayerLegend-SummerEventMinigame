@@ -9,12 +9,6 @@ export default function Slayer({ row, col }: { row: number; col: number }) {
     baseWidth: 84,
     baseHeight: 122,
     scaleFactor: 0.4,
-    getWidth() {
-      return this.baseWidth * this.scaleFactor;
-    },
-    getHeight() {
-      return this.baseHeight * this.scaleFactor;
-    },
   };
 
   function rowToCssTop(row: number): number {
@@ -29,8 +23,8 @@ export default function Slayer({ row, col }: { row: number; col: number }) {
     <Image
       className={styles.slayer}
       src="/images/slayer_summer.png"
-      width={slayer.getWidth()}
-      height={slayer.getHeight()}
+      width={slayer.baseWidth * slayer.scaleFactor}
+      height={slayer.baseHeight * slayer.scaleFactor}
       alt="slayer_summer.png"
       style={{
         left: colToCssLeft(col),
