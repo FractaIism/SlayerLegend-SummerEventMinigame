@@ -1,8 +1,9 @@
 "use client";
 
-import React from 'react';
+import React from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
+import { range } from "lodash";
 
 export default function GameBoard() {
   return (
@@ -23,13 +24,25 @@ function SVGOverlay() {
     console.log(e.target);
   }
 
+  const blockSize = 44;
+  const gapX = 3.5;
+  const gapY = 3.0;
+  const startX = 11;
+  const startY = 12;
+
   return (
-      <svg className={styles.overlay} width={250} height={250}>
-        <rect
-          width={100}
-          height={100}
-          onClick={handleClick}
-        />
-      </svg>
+    <svg className={styles.overlay} width={250} height={250}>
+      {range(5).map((row) =>
+        range(5).map((col) => (
+          <rect
+            key={`${row}-${col}`}
+            x={startX + col * blockSize + (col - 1) * gapX}
+            y={startY + row * blockSize + (row - 1) * gapY}
+            width={blockSize}
+            height={blockSize}
+          />
+        ))
+      )}
+    </svg>
   );
 }
