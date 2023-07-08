@@ -1,4 +1,7 @@
+.main {
+  position: relative;
+}
+
 .slayer {
   position: absolute;
-  left: 0;
 }
