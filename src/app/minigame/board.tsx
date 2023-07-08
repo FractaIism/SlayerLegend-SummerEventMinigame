@@ -1,9 +1,10 @@
 "use client";
 
-import React, { MouseEventHandler } from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
 import { range } from "lodash";
+import { GlobalVariableContext } from "./providers.tsx";
 
 export default function GameBoard({
   moveSlayerTo,
@@ -28,13 +29,13 @@ function SVGOverlay({
 }: {
   moveSlayerTo: (row: number, col: number) => void;
 }) {
-  function handleClick(e: React.MouseEvent<SVGRectElement>) {
-    console.log(e.target);
-  }
-
   function isValidBlock(row: number, col: number) {
     return validBlocks.some(([r, c]) => r === row && c === col);
   }
+
+  const { startX, startY, blockSize, gapX, gapY } = useContext(
+    GlobalVariableContext
+  );
 
   const validBlocks = [
     [0, 1],
@@ -52,12 +53,6 @@ function SVGOverlay({
     [4, 3],
     [4, 4],
   ];
-
-  const blockSize = 44;
-  const gapX = 3.5;
-  const gapY = 3.0;
-  const startX = 11;
-  const startY = 12;
 
   return (
     <svg className={styles.overlay} width={250} height={250}>
