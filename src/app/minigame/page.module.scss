@@ -22,9 +22,8 @@
   vertical-align: top;
 }
 
-$blockSize: 44px;
-
 .block {
+  $blockSize: 44px;
   width: $blockSize;
   height: $blockSize;
   background-image: url(/images/minigame.png);
