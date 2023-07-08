@@ -4,4 +4,12 @@
 
 .slayer {
   position: absolute;
+  left: 0;
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  /* background-color: aqua; */
+  /* visibility: hidden; */
 }

@@ -22,9 +22,6 @@ export default function Slayer() {
   return (
     <Image
       className={styles.slayer}
-      style={{
-        left: 0,
-      }}
       src="/images/slayer_summer.png"
       width={slayer.getWidth()}
       height={slayer.getHeight()}
