@@ -16,22 +16,33 @@
   fill: rgba(0, 255, 255, 0.407);
 }
 
+$blockSize: 44px;
+$colWidth: 100px;
+
 .weights {
   display: inline-grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(5, $blockSize);
+  grid-auto-columns: $colWidth;
+  grid-auto-flow: column;
+  gap: 3px;
   margin-left: 10px;
   vertical-align: top;
+  padding-top: 9px;
+}
+
+.weightItem {
+  display: flex;
 }
 
 .weightInput {
-  width: 50px;
   text-align: center;
+  width: calc($colWidth - $blockSize - 13px);
 }
 
-.block {
-  $blockSize: 44px;
+.weightIcon {
   width: $blockSize;
   height: $blockSize;
+  margin-right: 3px;
   background-image: url(/images/minigame.png);
   background-size: 250px;
 }
