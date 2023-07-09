@@ -1,6 +1,7 @@
 $blockSize: 116px / 2;
 
 .diceIcon {
+  display: inline-block;
   width: $blockSize;
   height: $blockSize;
   background-image: url(/images/dice.png);
@@ -13,4 +14,10 @@ $blockSize: 116px / 2;
 
 .dice_236 {
   background-position-x: $blockSize;
+}
+
+.calculatorRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
