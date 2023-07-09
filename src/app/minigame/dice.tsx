@@ -39,9 +39,7 @@ function DiceCalculatorRow({ children }: { children: ReactNode }) {
 }
 
 function DiceIcon({ className }: { className: string }) {
-  return (
-    <div className={`${diceStyles.diceIcon} ${className}`}></div>
-  );
+  return <div className={`${diceStyles.diceIcon} ${className}`}></div>;
 }
 
 function DiceCalculatorText({
@@ -56,16 +54,23 @@ function DiceCalculatorText({
   const reachableItems = reachableIndexes.map(
     (idx) => items.filter((item) => item.indexes.includes(idx))[0]
   );
+  const weightedAvg =
+    reachableItems.reduce((sum, item) => sum + item.weight, 0) /
+    reachableItems.length;
 
   return (
     <div style={{ display: "inline-block" }}>
+      {weightedAvg.toFixed(1)}
       {reachableItems.map((item) => {
         return (
-          <div
-            key={item.className}
-            className={`${iconStyles.blockIcon} ${item.className}`}
-            style={{ display: "inline-block" }}
-          />
+          <>
+            <div
+              key={item.className}
+              className={`${iconStyles.blockIcon} ${item.className}`}
+              style={{ display: "inline-block" }}
+            />
+            {item.weight}
+          </>
         );
       })}
     </div>
