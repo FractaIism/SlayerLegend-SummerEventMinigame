@@ -1,7 +1,26 @@
 import styles from "./page.module.scss";
+import { useState } from "react";
 import { orderBy } from "lodash";
 
-export function Weights({ sortByWeight }: { sortByWeight: boolean }) {
+export function Weights() {
+  const [sorted, setSorted] = useState(true);
+
+  return (
+    <div className={styles.sortableWeightList}>
+      <label className={styles.sortByWeightLabel}>
+        <input
+          type="checkbox"
+          checked={sorted}
+          onClick={() => setSorted(!sorted)}
+        />
+        Sort by weight
+      </label>
+      <WeightList sorted={sorted} />
+    </div>
+  );
+}
+
+function WeightList({ sorted }: { sorted: boolean }) {
   let items = [
     { weight: 11, className: styles.diamond_x100_5000 },
     { weight: 23, className: styles.white_feather_x1 },
@@ -18,12 +37,12 @@ export function Weights({ sortByWeight }: { sortByWeight: boolean }) {
     { weight: 58, className: styles.diamond_x500 },
   ];
 
-  if (sortByWeight) {
+  if (sorted) {
     items = orderBy(items, ["weight"], ["desc"]);
   }
 
   return (
-    <div className={styles.weights}>
+    <div className={styles.weightList}>
       {items.map(({ className, weight }) => (
         <WeightItem key={className} className={className} weight={weight} />
       ))}

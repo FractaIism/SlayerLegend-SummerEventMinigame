@@ -19,15 +19,23 @@
 $blockSize: 44px;
 $colWidth: 100px;
 
-.weights {
+.sortableWeightList {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 10px;
+}
+
+.sortByWeightLabel {
+  display: block;
+  height: 1.5rem;
+}
+
+.weightList {
   display: inline-grid;
   grid-template-rows: repeat(5, $blockSize);
   grid-auto-columns: $colWidth;
   grid-auto-flow: column;
   gap: 3px;
-  margin-left: 10px;
-  vertical-align: top;
-  padding-top: 9px;
 }
 
 .weightItem {
