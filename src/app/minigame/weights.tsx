@@ -1,7 +1,8 @@
 import styles from "./page.module.scss";
+import { orderBy } from "lodash";
 
-export function Weights() {
-  const items = [
+export function Weights({ sortByWeight }: { sortByWeight: boolean }) {
+  let items = [
     { weight: 11, className: styles.diamond_x100_5000 },
     { weight: 23, className: styles.white_feather_x1 },
     { weight: 45, className: styles.purple_feather_x1 },
@@ -16,6 +17,11 @@ export function Weights() {
     { weight: 90, className: styles.emerald_x30_1500 },
     { weight: 58, className: styles.diamond_x500 },
   ];
+
+  if (sortByWeight) {
+    items = orderBy(items, ["weight"], ["desc"]);
+  }
+
   return (
     <div className={styles.weights}>
       {items.map(({ className, weight }) => (

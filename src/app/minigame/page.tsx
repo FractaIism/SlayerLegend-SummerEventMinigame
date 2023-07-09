@@ -20,7 +20,7 @@ export default function Home() {
         <GameBoard setSlayerPosition={setSlayerPosition}>
           <Slayer position={slayerPosition} />
         </GameBoard>
-        <Weights />
+        <Weights sortByWeight={true} />
       </Providers>
     </main>
   );
