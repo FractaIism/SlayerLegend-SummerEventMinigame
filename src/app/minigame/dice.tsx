@@ -23,11 +23,11 @@ export function DiceCalculator({
   return (
     <div className={diceStyles.calculator}>
       <DiceCalculatorRow>
-        <div className={`${diceStyles.diceIcon} ${diceStyles.dice_145}`}></div>
+        <DiceIcon className={diceStyles.dice_145} />
         <DiceCalculatorText slayerIndex={slayerIndex} moves={[1, 4, 5]} />
       </DiceCalculatorRow>
       <DiceCalculatorRow>
-        <div className={`${diceStyles.diceIcon} ${diceStyles.dice_236}`}></div>
+        <DiceIcon className={diceStyles.dice_236} />
         <DiceCalculatorText slayerIndex={slayerIndex} moves={[2, 3, 6]} />
       </DiceCalculatorRow>
     </div>
@@ -36,6 +36,12 @@ export function DiceCalculator({
 
 function DiceCalculatorRow({ children }: { children: ReactNode }) {
   return <div className={diceStyles.calculatorRow}>{children}</div>;
+}
+
+function DiceIcon({ className }: { className: string }) {
+  return (
+    <div className={`${diceStyles.diceIcon} ${className}`}></div>
+  );
 }
 
 function DiceCalculatorText({
@@ -52,7 +58,7 @@ function DiceCalculatorText({
   );
 
   return (
-    <div style={{display:"inline-block"}}>
+    <div style={{ display: "inline-block" }}>
       {reachableItems.map((item) => {
         return (
           <div
