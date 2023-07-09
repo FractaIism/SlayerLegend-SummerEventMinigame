@@ -2,9 +2,9 @@ import diceStyles from "./dice.module.scss";
 import iconStyles from "./icons.module.scss";
 import { range } from "lodash";
 import { ItemI, ItemsContext } from "./context.tsx";
-import { useContext, ReactNode } from "react";
+import { useContext, ReactNode, Fragment } from "react";
 import { Position } from "./slayer.tsx";
-import { indexToPosition } from "./utils.tsx";
+import { indexToPosition, isDice } from "./utils.tsx";
 
 export function DiceCalculator({
   slayerPosition,
@@ -42,6 +42,8 @@ function DiceIcon({ className }: { className: string }) {
   return <div className={`${diceStyles.diceIcon} ${className}`}></div>;
 }
 
+type EventuallyReachableItem = ItemI | ItemI[][];
+
 function DiceCalculatorText({
   slayerIndex,
   moves,
@@ -61,35 +63,84 @@ function DiceCalculatorText({
     return reachableItems;
   }
 
+  function getEventuallyReachableItems(
+    items: ItemI[],
+    slayerIndex: number,
+    moves: number[]
+  ): EventuallyReachableItem[] {
+    const firstMoveReachableItems = getReachableItems(
+      items,
+      slayerIndex,
+      moves
+    );
+    const eventuallyReachableItems = firstMoveReachableItems.map((item, i) => {
+      return isDice(item)
+        ? [
+            getReachableItems(items, slayerIndex + i, [1, 4, 5]),
+            getReachableItems(items, slayerIndex + i, [2, 3, 6]),
+          ]
+        : item;
+    });
+    return eventuallyReachableItems;
+  }
+
   function computeWeightedAverage(
     items: ItemI[],
     slayerIndex: number,
     moves: number[]
   ) {
     const reachableItems = getReachableItems(items, slayerIndex, moves);
-    const weightedAvg =
-      reachableItems.reduce((sum, item) => sum + item.weight, 0);
+    const weightedAvg = reachableItems.reduce(
+      (sum, item) => sum + item.weight,
+      0
+    );
     return weightedAvg;
   }
 
   const [items, updateItems] = useContext(ItemsContext);
-  const reachableItems = getReachableItems(items, slayerIndex, moves);
+  const eventuallyReachableItems = getEventuallyReachableItems(
+    items,
+    slayerIndex,
+    moves
+  );
   const weightedAvg = computeWeightedAverage(items, slayerIndex, moves);
 
   return (
     <div style={{ display: "inline-block" }}>
       {weightedAvg.toFixed(1)}
-      <DiceCalculatorTextSegment items={reachableItems} />
+      <DiceCalculatorTextSegment
+        eventuallyReachableItems={eventuallyReachableItems}
+      />
     </div>
   );
 }
 
-function DiceCalculatorTextSegment({ items }: { items: ItemI[] }) {
+function DiceCalculatorTextSegment({
+  eventuallyReachableItems,
+}: {
+  eventuallyReachableItems: EventuallyReachableItem[];
+}) {
   return (
     <>
-      {items.map((item) => (
-        <DiceCalculatorItemWithWeight key={item.className} item={item} />
-      ))}
+      {eventuallyReachableItems.map((item) =>
+        Array.isArray(item) ? (
+          <Fragment key={Math.random()}>
+            {"Max("}
+            <DiceCalculatorTextSegment
+              key={1}
+              eventuallyReachableItems={item[0]}
+            />
+            {" , "}
+            <DiceCalculatorTextSegment
+              key={2}
+              eventuallyReachableItems={item[1]}
+            />
+            {")"}
+          </Fragment>
+        ) : (
+          <DiceCalculatorItemWithWeight key={item.className} item={item} />
+        )
+      )}
     </>
   );
 }
