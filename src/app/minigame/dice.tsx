@@ -68,8 +68,7 @@ function DiceCalculatorText({
   ) {
     const reachableItems = getReachableItems(items, slayerIndex, moves);
     const weightedAvg =
-      reachableItems.reduce((sum, item) => sum + item.weight, 0) /
-      reachableItems.length;
+      reachableItems.reduce((sum, item) => sum + item.weight, 0);
     return weightedAvg;
   }
 
