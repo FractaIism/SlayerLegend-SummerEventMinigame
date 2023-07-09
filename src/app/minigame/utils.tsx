@@ -32,3 +32,8 @@ export function indexToPosition(index: number): Position {
 export function isDice(item: ItemI): boolean {
   return item.className === iconStyles.event_dice_x1;
 }
+
+export function tee<T>(value: T) {
+  console.log(value);
+  return value;
+}
