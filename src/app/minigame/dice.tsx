@@ -109,8 +109,9 @@ function DiceCalculatorText({
                 (slayerIndex + moves[i]) % 16,
                 [2, 3, 6],
               ),
-            ) / 3
-          : item.weight),
+            )
+          : item.weight) /
+          3,
       0,
     );
     return weightedAvg;
@@ -127,9 +128,11 @@ function DiceCalculatorText({
   return (
     <div className={diceStyles.calculatorText}>
       {weightedAvg.toFixed(1)}&nbsp;=&nbsp;
+      <>{"(1/3)*("}&nbsp;</>
       <DiceCalculatorTextSegment
         eventuallyReachableItems={eventuallyReachableItems}
       />
+      <>&nbsp;{")"}</>
     </div>
   );
 }
