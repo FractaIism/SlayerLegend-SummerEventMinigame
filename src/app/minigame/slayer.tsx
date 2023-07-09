@@ -4,7 +4,11 @@ import Image from "next/image";
 import styles from "./slayer.module.scss";
 import { useContext } from "react";
 import { GlobalVariableContext } from "./context.tsx";
-import { Position } from "./types.tsx";
+
+export interface Position {
+  row: number,
+  col: number,
+}
 
 export function Slayer({ position }: { position: Position }) {
   const ctx = useContext(GlobalVariableContext);

@@ -5,7 +5,7 @@ import styles from "./board.module.scss";
 import { useContext, ReactNode } from "react";
 import { range } from "lodash";
 import { GlobalVariableContext } from "./context.tsx";
-import { Position } from "./types.tsx";
+import { Position } from "./slayer.tsx";
 
 const boardSize = 250;
 
