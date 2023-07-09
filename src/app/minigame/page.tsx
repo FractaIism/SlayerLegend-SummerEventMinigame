@@ -7,6 +7,7 @@ import { GameBoard } from "./board.tsx";
 import { Providers } from "./context.tsx";
 import { Position } from "./types.tsx";
 import { Weights } from "./weights.tsx";
+import { DiceCalculator } from "./dice.tsx";
 
 export default function Home() {
   const [slayerPosition, setSlayerPosition]: [Position, any] = useState({
@@ -21,6 +22,7 @@ export default function Home() {
           <Slayer position={slayerPosition} />
         </GameBoard>
         <Weights />
+        <DiceCalculator />
       </Providers>
     </main>
   );

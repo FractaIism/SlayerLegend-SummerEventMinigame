@@ -1,0 +1,16 @@
+$blockSize: 116px / 2;
+
+.diceIcon {
+  width: $blockSize;
+  height: $blockSize;
+  background-image: url(/images/dice.png);
+  background-size: $blockSize * 2 $blockSize;
+}
+
+.dice_145 {
+  background-position-x: 0;
+}
+
+.dice_236 {
+  background-position-x: $blockSize;
+}
