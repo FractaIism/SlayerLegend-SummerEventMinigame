@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import styles from "./page.module.scss";
+import styles from "./board.module.scss";
 import { useContext, ReactNode } from "react";
 import { range } from "lodash";
 import { GlobalVariableContext } from "./context.tsx";

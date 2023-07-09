@@ -1,4 +1,4 @@
-import styles from "./page.module.scss";
+import styles from "./weights.module.scss";
 import { useContext, useState } from "react";
 import { orderBy } from "lodash";
 import { useImmer } from "use-immer";

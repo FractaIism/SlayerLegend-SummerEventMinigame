@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import styles from "./page.module.scss";
+import styles from "./slayer.module.scss";
 import { useContext } from "react";
 import { GlobalVariableContext } from "./context.tsx";
 import { Position } from "./types.tsx";
