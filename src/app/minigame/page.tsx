@@ -21,7 +21,7 @@ export default function Home() {
           <Slayer position={slayerPosition} />
         </GameBoard>
         <Weights />
-        <DiceCalculator />
+        <DiceCalculator slayerPosition={slayerPosition} />
       </Providers>
     </main>
   );
