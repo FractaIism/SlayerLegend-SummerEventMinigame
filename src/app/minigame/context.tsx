@@ -28,7 +28,7 @@ export const GlobalVariableContext = createContext({
   ],
 });
 
-interface ItemI {
+export interface ItemI {
   indexes: number[];
   weight: number;
   className: string;

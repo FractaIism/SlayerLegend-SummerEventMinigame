@@ -1,7 +1,7 @@
 import diceStyles from "./dice.module.scss";
 import iconStyles from "./icons.module.scss";
 import { range } from "lodash";
-import { ItemsContext } from "./context.tsx";
+import { ItemI, ItemsContext } from "./context.tsx";
 import { useContext, ReactNode } from "react";
 import { Position } from "./slayer.tsx";
 import { indexToPosition } from "./utils.tsx";
@@ -49,14 +49,32 @@ function DiceCalculatorText({
   slayerIndex: number;
   moves: number[];
 }) {
-  const [items, updateItems] = useContext(ItemsContext);
-  const reachableIndexes = moves.map((n) => (slayerIndex + n) % 16);
-  const reachableItems = reachableIndexes.map(
-    (idx) => items.filter((item) => item.indexes.includes(idx))[0]
-  );
-  const weightedAvg =
-    reachableItems.reduce((sum, item) => sum + item.weight, 0) /
+  function getReachableItems(
+    items: ItemI[],
+    slayerIndex: number,
+    moves: number[]
+  ): ItemI[] {
+    const reachableIndexes = moves.map((n) => (slayerIndex + n) % 16);
+    const reachableItems = reachableIndexes.map(
+      (idx) => items.filter((item) => item.indexes.includes(idx))[0]
+    );
+    return reachableItems;
+  }
+
+  function computeWeightedAverage(
+    items: ItemI[],
+    slayerIndex: number,
+    moves: number[]
+  ) {
+    const reachableItems = getReachableItems(items, slayerIndex, moves);
+    const weightedAvg = reachableItems.reduce((sum, item) => sum + item.weight, 0) /
     reachableItems.length;
+    return weightedAvg;
+  }
+
+  const [items, updateItems] = useContext(ItemsContext);
+  const reachableItems = getReachableItems(items, slayerIndex, moves);
+  const weightedAvg = computeWeightedAverage(items, slayerIndex, moves);
 
   return (
     <div style={{ display: "inline-block" }}>

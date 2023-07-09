@@ -1,4 +1,6 @@
-import { Position } from "./slayer";
+import { Position } from "./slayer.tsx";
+import { ItemI } from "./context.tsx";
+import iconStyles from "./icons.module.scss";
 
 interface IndexPositionMappingI {
   [key: number]: Position;
@@ -25,4 +27,8 @@ export function indexToPosition(index: number): Position {
   };
 
   return mapping[index];
+}
+
+export function isDice(item: ItemI): boolean {
+  return item.className === iconStyles.event_dice_x1;
 }
