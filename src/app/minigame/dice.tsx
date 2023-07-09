@@ -106,7 +106,7 @@ function DiceCalculatorText({
   const weightedAvg = computeWeightedAverage(items, slayerIndex, moves);
 
   return (
-    <div style={{ display: "inline-flex", alignItems:"center" }}>
+    <div className={diceStyles.calculatorText}>
       {weightedAvg.toFixed(1)}&nbsp;=&nbsp;
       <DiceCalculatorTextSegment
         eventuallyReachableItems={eventuallyReachableItems}
