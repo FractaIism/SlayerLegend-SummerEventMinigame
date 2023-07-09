@@ -139,13 +139,21 @@ function DiceCalculatorTextSegment({
 }: {
   eventuallyReachableItems: EventuallyReachableItem[];
 }) {
+  const [items, updateItems] = useContext(ItemsContext);
+  const diceItem = items.find((item) => isDice(item)) as ItemI;
+
   return (
     <>
       {eventuallyReachableItems.map((item, i) => (
-        <>
+        <Fragment key={i}>
           {i === 0 ? "" : <>&nbsp;+&nbsp;</>}
           {Array.isArray(item) ? (
             <Fragment key={Math.random()}>
+              <DiceCalculatorItem
+                key={diceItem.className}
+                item={diceItem}
+                displayWeight={false}
+              />
               <>{"(1/3)*Max("}&nbsp;</>
               <DiceCalculatorTextSegment
                 key={1}
@@ -159,22 +167,28 @@ function DiceCalculatorTextSegment({
               <>&nbsp;{")"}</>
             </Fragment>
           ) : (
-            <DiceCalculatorItemWithWeight key={item.className} item={item} />
+            <DiceCalculatorItem key={item.className} item={item} />
           )}
-        </>
+        </Fragment>
       ))}
     </>
   );
 }
 
-function DiceCalculatorItemWithWeight({ item }: { item: ItemI }) {
+function DiceCalculatorItem({
+  item,
+  displayWeight = true,
+}: {
+  item: ItemI;
+  displayWeight?: boolean;
+}) {
   return (
     <>
       <div
         className={`${iconStyles.blockIcon} ${item.className}`}
         style={{ display: "inline-block" }}
       />
-      {item.weight}
+      {displayWeight && item.weight}
     </>
   );
 }
