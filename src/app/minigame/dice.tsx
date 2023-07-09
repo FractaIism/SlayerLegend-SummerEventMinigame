@@ -109,11 +109,11 @@ function DiceCalculatorText({
                 (slayerIndex + moves[i]) % 16,
                 [2, 3, 6],
               ),
-            )
+            ) / 3
           : item.weight),
       0,
     );
-    return weightedAvg
+    return weightedAvg;
   }
 
   const [items, updateItems] = useContext(ItemsContext);
@@ -146,7 +146,7 @@ function DiceCalculatorTextSegment({
           {i === 0 ? "" : <>&nbsp;+&nbsp;</>}
           {Array.isArray(item) ? (
             <Fragment key={Math.random()}>
-              <>{"Max("}&nbsp;</>
+              <>{"(1/3)*Max("}&nbsp;</>
               <DiceCalculatorTextSegment
                 key={1}
                 eventuallyReachableItems={item[0]}
