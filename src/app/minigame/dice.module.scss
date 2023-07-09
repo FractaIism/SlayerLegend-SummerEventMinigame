@@ -16,6 +16,13 @@ $blockSize: 116px / 2;
   background-position-x: $blockSize;
 }
 
+.calculator {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
 .calculatorRow {
   display: flex;
   align-items: center;

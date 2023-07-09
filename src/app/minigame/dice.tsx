@@ -21,7 +21,7 @@ export function DiceCalculator({
   }
 
   return (
-    <>
+    <div className={diceStyles.calculator}>
       <DiceCalculatorRow>
         <div className={`${diceStyles.diceIcon} ${diceStyles.dice_145}`}></div>
         <DiceCalculatorText slayerIndex={slayerIndex} moves={[1, 4, 5]} />
@@ -30,7 +30,7 @@ export function DiceCalculator({
         <div className={`${diceStyles.diceIcon} ${diceStyles.dice_236}`}></div>
         <DiceCalculatorText slayerIndex={slayerIndex} moves={[2, 3, 6]} />
       </DiceCalculatorRow>
-    </>
+    </div>
   );
 }
 
