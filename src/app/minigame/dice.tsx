@@ -107,7 +107,7 @@ function DiceCalculatorText({
 
   return (
     <div style={{ display: "inline-block" }}>
-      {weightedAvg.toFixed(1)}
+      {weightedAvg.toFixed(1) + " = "}
       <DiceCalculatorTextSegment
         eventuallyReachableItems={eventuallyReachableItems}
       />
@@ -122,25 +122,28 @@ function DiceCalculatorTextSegment({
 }) {
   return (
     <>
-      {eventuallyReachableItems.map((item) =>
-        Array.isArray(item) ? (
-          <Fragment key={Math.random()}>
-            {"Max("}
-            <DiceCalculatorTextSegment
-              key={1}
-              eventuallyReachableItems={item[0]}
-            />
-            {" , "}
-            <DiceCalculatorTextSegment
-              key={2}
-              eventuallyReachableItems={item[1]}
-            />
-            {")"}
-          </Fragment>
-        ) : (
-          <DiceCalculatorItemWithWeight key={item.className} item={item} />
-        )
-      )}
+      {eventuallyReachableItems.map((item, i) => (
+        <>
+          {(i === 0 ? "" : " + ")}
+          {Array.isArray(item) ? (
+            <Fragment key={Math.random()}>
+              {"Max("}
+              <DiceCalculatorTextSegment
+                key={1}
+                eventuallyReachableItems={item[0]}
+              />
+              {" , "}
+              <DiceCalculatorTextSegment
+                key={2}
+                eventuallyReachableItems={item[1]}
+              />
+              {")"}
+            </Fragment>
+          ) : (
+            <DiceCalculatorItemWithWeight key={item.className} item={item} />
+          )}
+        </>
+      ))}
     </>
   );
 }
