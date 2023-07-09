@@ -67,8 +67,9 @@ function DiceCalculatorText({
     moves: number[]
   ) {
     const reachableItems = getReachableItems(items, slayerIndex, moves);
-    const weightedAvg = reachableItems.reduce((sum, item) => sum + item.weight, 0) /
-    reachableItems.length;
+    const weightedAvg =
+      reachableItems.reduce((sum, item) => sum + item.weight, 0) /
+      reachableItems.length;
     return weightedAvg;
   }
 
@@ -79,18 +80,29 @@ function DiceCalculatorText({
   return (
     <div style={{ display: "inline-block" }}>
       {weightedAvg.toFixed(1)}
-      {reachableItems.map((item) => {
-        return (
-          <>
-            <div
-              key={item.className}
-              className={`${iconStyles.blockIcon} ${item.className}`}
-              style={{ display: "inline-block" }}
-            />
-            {item.weight}
-          </>
-        );
-      })}
+      <DiceCalculatorTextSegment items={reachableItems} />
     </div>
+  );
+}
+
+function DiceCalculatorTextSegment({ items }: { items: ItemI[] }) {
+  return (
+    <>
+      {items.map((item) => (
+        <DiceCalculatorItemWithWeight key={item.className} item={item} />
+      ))}
+    </>
+  );
+}
+
+function DiceCalculatorItemWithWeight({ item }: { item: ItemI }) {
+  return (
+    <>
+      <div
+        className={`${iconStyles.blockIcon} ${item.className}`}
+        style={{ display: "inline-block" }}
+      />
+      {item.weight}
+    </>
   );
 }
