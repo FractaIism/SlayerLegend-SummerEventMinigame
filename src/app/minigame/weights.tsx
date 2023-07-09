@@ -1,6 +1,7 @@
 import styles from "./page.module.scss";
 import { useState } from "react";
 import { orderBy } from "lodash";
+import { useImmer } from "use-immer";
 
 export function Weights() {
   const [sorted, setSorted] = useState(true);
@@ -11,7 +12,7 @@ export function Weights() {
         <input
           type="checkbox"
           checked={sorted}
-          onClick={() => setSorted(!sorted)}
+          onChange={() => setSorted(!sorted)}
         />
         Sort by weight
       </label>
@@ -21,7 +22,17 @@ export function Weights() {
 }
 
 function WeightList({ sorted }: { sorted: boolean }) {
-  let items = [
+  function updateItemWeight(className: string, newWeight: number) {
+    updateItems((draftItems) => {
+      const draftItem = draftItems.find((item) => item.className === className);
+      if (!draftItem) {
+        throw `className ${className} not found`;
+      }
+      draftItem.weight = newWeight;
+    });
+  }
+
+  const [items, updateItems] = useImmer([
     { weight: 11, className: styles.diamond_x100_5000 },
     { weight: 23, className: styles.white_feather_x1 },
     { weight: 45, className: styles.purple_feather_x1 },
@@ -35,16 +46,19 @@ function WeightList({ sorted }: { sorted: boolean }) {
     { weight: 17, className: styles.water_stone_x1000 },
     { weight: 90, className: styles.emerald_x30_1500 },
     { weight: 58, className: styles.diamond_x500 },
-  ];
+  ]);
 
-  if (sorted) {
-    items = orderBy(items, ["weight"], ["desc"]);
-  }
+  let orderedItems = sorted ? orderBy(items, ["weight"], ["desc"]) : items;
 
   return (
     <div className={styles.weightList}>
-      {items.map(({ className, weight }) => (
-        <WeightItem key={className} className={className} weight={weight} />
+      {orderedItems.map(({ className, weight }) => (
+        <WeightItem
+          key={className}
+          className={className}
+          weight={weight}
+          updateItemWeight={updateItemWeight}
+        />
       ))}
     </div>
   );
@@ -53,9 +67,11 @@ function WeightList({ sorted }: { sorted: boolean }) {
 function WeightItem({
   className,
   weight,
+  updateItemWeight,
 }: {
   className: string;
   weight: number;
+  updateItemWeight: (className: string, newWeight: number) => void;
 }) {
   return (
     <div className={styles.weightItem}>
@@ -65,6 +81,11 @@ function WeightItem({
         type="text"
         value={weight}
         placeholder="0"
+        onChange={(e) => {
+          const floatValue = parseFloat(e.target.value);
+          const repairedValue = Number.isNaN(floatValue) ? 0 : floatValue;
+          updateItemWeight(className, repairedValue);
+        }}
       />
     </div>
   );
