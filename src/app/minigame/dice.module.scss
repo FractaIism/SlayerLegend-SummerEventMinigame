@@ -6,6 +6,7 @@ $blockSize: 116px / 2;
   height: $blockSize;
   background-image: url(/images/dice.png);
   background-size: $blockSize * 2 $blockSize;
+  flex-shrink: 0;
 }
 
 .dice_145 {
