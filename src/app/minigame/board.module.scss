@@ -10,9 +10,15 @@
 }
 
 .overlayBlockVisible {
-  --cyan: rgba(157, 249, 255, 1.0);
-  --violet: rgba(179, 130, 237, 1.0);
   fill: none;
   stroke-width: 3px;
-  stroke: var(--cyan);
+  stroke: var(--color);
+}
+
+.cyan {
+  --color: rgba(157, 249, 255, 1.0);
+}
+
+.violet {
+  --color: rgba(179, 130, 237, 1.0);
 }

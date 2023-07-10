@@ -17,7 +17,10 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Providers>
-        <GameBoard setSlayerPosition={setSlayerPosition}>
+        <GameBoard
+          slayerPosition={slayerPosition}
+          setSlayerPosition={setSlayerPosition}
+        >
           <Slayer position={slayerPosition} />
         </GameBoard>
         <Weights />
