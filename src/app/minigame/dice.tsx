@@ -76,8 +76,8 @@ function DiceCalculatorText({
     const eventuallyReachableItems = firstMoveReachableItems.map((item, i) => {
       return isDice(item)
         ? [
-            getReachableItems(items, slayerIndex + moves[i], [1, 4, 5]),
-            getReachableItems(items, slayerIndex + moves[i], [2, 3, 6]),
+            getReachableItems(items, (slayerIndex + moves[i]) % 16, [1, 4, 5]),
+            getReachableItems(items, (slayerIndex + moves[i]) % 16, [2, 3, 6]),
           ]
         : item;
     });
