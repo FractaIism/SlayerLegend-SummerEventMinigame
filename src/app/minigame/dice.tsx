@@ -1,6 +1,5 @@
 import diceStyles from "./dice.module.scss";
 import iconStyles from "./icons.module.scss";
-import { range } from "lodash";
 import { ItemI, ItemsContext } from "./context.tsx";
 import {
   useState,
@@ -12,7 +11,7 @@ import {
   SetStateAction,
 } from "react";
 import { Position } from "./slayer.tsx";
-import { indexToPosition, isDice, positionToIndex, tee } from "./utils.tsx";
+import { isDice, positionToIndex } from "./utils.tsx";
 
 export function DiceCalculator({
   slayerPosition,

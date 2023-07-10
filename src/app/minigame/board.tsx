@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import styles from "./board.module.scss";
-import { useContext, ReactNode, MouseEventHandler } from "react";
+import { useContext, ReactNode } from "react";
 import { range } from "lodash";
 import { GlobalVariableContext } from "./context.tsx";
 import { Position } from "./slayer.tsx";
