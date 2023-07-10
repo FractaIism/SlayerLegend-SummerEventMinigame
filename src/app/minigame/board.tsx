@@ -86,18 +86,56 @@ function DecorativeSVGOverlay({
     return nextSlayerIndexes2.includes(blockIndex);
   }
 
+  const colors = {
+    CYAN: Symbol("cyan"),
+    VIOLET: Symbol("violet"),
+    NONE: Symbol("none"),
+  };
+
   const { validPositions } = useContext(GlobalVariableContext);
 
   const slayerIndex = positionToIndex(slayerPosition);
 
   return (
     <svg className={styles.overlay} width={boardSize} height={boardSize}>
+      <filter id="cyanShadow">
+        <feDropShadow
+          dx="0"
+          dy="0"
+          stdDeviation="2"
+          floodColor={"cyan"}
+        />
+      </filter>
+      <filter id="violetShadow">
+        <feDropShadow
+          dx="0"
+          dy="0"
+          stdDeviation="2"
+          floodColor={"violet"}
+        />
+      </filter>
       {range(5).map((row) =>
         range(5).map((col) => {
           const blockIndex = positionToIndex({ row, col });
           const r145 = isBlockReachable(blockIndex, slayerIndex, [1, 4, 5]);
           const r236 = isBlockReachable(blockIndex, slayerIndex, [2, 3, 6]);
-          const blockClassName = r145 ? styles.cyan : r236 ? styles.violet : "";
+          const color = r145 ? colors.CYAN : r236 ? colors.VIOLET : colors.NONE;
+          let blockClassName: string;
+          let svgFilterId: string;
+          switch (color) {
+            case colors.CYAN:
+              blockClassName = styles.cyan;
+              svgFilterId = "cyanShadow";
+              break;
+            case colors.VIOLET:
+              blockClassName = styles.violet;
+              svgFilterId = "violetShadow";
+              break;
+            default:
+              blockClassName = "";
+              svgFilterId = "default";
+              break;
+          }
           if (blockExists(row, col)) {
             return (
               <SVGRectBlock
@@ -105,6 +143,7 @@ function DecorativeSVGOverlay({
                 row={row}
                 col={col}
                 className={`${styles.overlayBlockVisible} ${blockClassName}`}
+                svgFilterId={svgFilterId}
               />
             );
           }
@@ -118,11 +157,13 @@ function SVGRectBlock({
   row,
   col,
   className,
+  svgFilterId: filterId = "",
   onClick = undefined,
 }: {
   row: number;
   col: number;
   className: string;
+  svgFilterId?: string;
   onClick?: () => void;
 }) {
   const ctx = useContext(GlobalVariableContext);
@@ -136,28 +177,9 @@ function SVGRectBlock({
       width={ctx.blockSize}
       height={ctx.blockSize}
       onClick={onClick ?? (() => null)}
+      style={{
+        filter: `url(#${filterId})`,
+      }}
     />
   );
 }
-
-// blockExists(row, col) ? (
-//   <rect
-//     className={
-//       isStatic
-//         ? styles.overlayBlockInvisible
-//         : styles.overlayBlockVisible
-//     }
-//     key={`${row}-${col}`}
-//     x={startX + col * (blockSize + gapX)}
-//     y={startY + row * (blockSize + gapY)}
-//     rx="3px"
-//     ry="3px"
-//     width={blockSize}
-//     height={blockSize}
-//     onClick={
-//       setSlayerPosition
-//         ? () => setSlayerPosition({ row: row, col: col })
-//         : () => null
-//     }
-//   />
-// ) : null,

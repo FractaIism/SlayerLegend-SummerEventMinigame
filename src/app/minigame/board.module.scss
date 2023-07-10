@@ -5,20 +5,22 @@
 }
 
 .overlayBlockInvisible {
-  // fill: rgba(0, 255, 255, 0.407);
   fill: transparent;
 }
 
 .overlayBlockVisible {
   fill: none;
-  stroke-width: 3px;
+  stroke-width: 1.5px;
   stroke: var(--color);
 }
 
+$cyan: rgba(157, 249, 255, 1);
+$violet: rgba(179, 130, 237, 1);
+
 .cyan {
-  --color: rgba(157, 249, 255, 1.0);
+  --color: #{cyan};
 }
 
 .violet {
-  --color: rgba(179, 130, 237, 1.0);
+  --color: #{violet};
 }
