@@ -99,15 +99,11 @@ function DecorativeSVGOverlay({
 
   return (
     <svg className={styles.overlay} width={boardSize} height={boardSize}>
-      <filter id="cyanShadow">
-        <feDropShadow className={styles.cyanShadow} dx="0" dy="0" stdDeviation="2" />
-      </filter>
-      <filter id="violetShadow">
-        <feDropShadow className={styles.violetShadow} dx="0" dy="0" stdDeviation="2" />
-      </filter>
-      <filter id="mixedShadow">
-        <feDropShadow className={styles.mixedShadow} dx="0" dy="0" stdDeviation="2" />
-      </filter>
+      {[styles.cyanShadow, styles.violetShadow, styles.mixedShadow].map(
+        (className) => (
+          <SVGFilter key={className} className={className} />
+        ),
+      )}
       {range(5).map((row) =>
         range(5).map((col) => {
           if (blockExists(row, col)) {
@@ -127,19 +123,19 @@ function DecorativeSVGOverlay({
             switch (color) {
               case colors.CYAN:
                 blockClassName = styles.cyan;
-                svgFilterId = "cyanShadow";
+                svgFilterId = styles.cyanShadow;
                 break;
               case colors.VIOLET:
                 blockClassName = styles.violet;
-                svgFilterId = "violetShadow";
+                svgFilterId = styles.violetShadow;
                 break;
               case colors.MIXED:
                 blockClassName = styles.mixed;
-                svgFilterId = "mixedShadow";
+                svgFilterId = styles.mixedShadow;
                 break;
               default:
                 blockClassName = "";
-                svgFilterId = "default";
+                svgFilterId = "";
                 break;
             }
 
@@ -156,6 +152,14 @@ function DecorativeSVGOverlay({
         }),
       )}
     </svg>
+  );
+}
+
+function SVGFilter({ className }: { className: string }) {
+  return (
+    <filter id={className}>
+      <feDropShadow className={className} dx="0" dy="0" stdDeviation="2" />
+    </filter>
   );
 }
 
