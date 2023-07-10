@@ -25,8 +25,24 @@ export function indexToPosition(index: number): Position {
     14: { row: 2, col: 4 },
     15: { row: 3, col: 4 },
   };
-
   return mapping[index];
+}
+
+interface PositionIndexMappingI {
+  [key: number]: {
+    [key: number]: number;
+  };
+}
+
+export function positionToIndex({ row, col }: Position): number {
+  const mapping: PositionIndexMappingI = {
+    0: { 1: 9, 2: 10, 3: 11, 4: 12 },
+    1: { 0: 7, 1: 8, 4: 13 },
+    2: { 0: 6, 4: 14 },
+    3: { 0: 5, 4: 15 },
+    4: { 0: 4, 1: 3, 2: 2, 3: 1, 4: 0 },
+  };
+  return mapping[row][col];
 }
 
 export function isDice(item: ItemI): boolean {
