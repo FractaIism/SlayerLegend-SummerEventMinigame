@@ -89,6 +89,7 @@ function DecorativeSVGOverlay({
   const colors = {
     CYAN: Symbol("cyan"),
     VIOLET: Symbol("violet"),
+    MIXED: Symbol("mixed"),
     NONE: Symbol("none"),
   };
 
@@ -99,44 +100,47 @@ function DecorativeSVGOverlay({
   return (
     <svg className={styles.overlay} width={boardSize} height={boardSize}>
       <filter id="cyanShadow">
-        <feDropShadow
-          dx="0"
-          dy="0"
-          stdDeviation="2"
-          floodColor={"cyan"}
-        />
+        <feDropShadow dx="0" dy="0" stdDeviation="2" floodColor={"cyan"} />
       </filter>
       <filter id="violetShadow">
-        <feDropShadow
-          dx="0"
-          dy="0"
-          stdDeviation="2"
-          floodColor={"violet"}
-        />
+        <feDropShadow dx="0" dy="0" stdDeviation="2" floodColor={"violet"} />
       </filter>
       {range(5).map((row) =>
         range(5).map((col) => {
-          const blockIndex = positionToIndex({ row, col });
-          const r145 = isBlockReachable(blockIndex, slayerIndex, [1, 4, 5]);
-          const r236 = isBlockReachable(blockIndex, slayerIndex, [2, 3, 6]);
-          const color = r145 ? colors.CYAN : r236 ? colors.VIOLET : colors.NONE;
-          let blockClassName: string;
-          let svgFilterId: string;
-          switch (color) {
-            case colors.CYAN:
-              blockClassName = styles.cyan;
-              svgFilterId = "cyanShadow";
-              break;
-            case colors.VIOLET:
-              blockClassName = styles.violet;
-              svgFilterId = "violetShadow";
-              break;
-            default:
-              blockClassName = "";
-              svgFilterId = "default";
-              break;
-          }
           if (blockExists(row, col)) {
+            const blockIndex = positionToIndex({ row, col });
+            const r145 = isBlockReachable(blockIndex, slayerIndex, [1, 4, 5]);
+            const r236 = isBlockReachable(blockIndex, slayerIndex, [2, 3, 6]);
+            const color =
+              r145 && r236
+                ? colors.MIXED
+                : r145
+                ? colors.CYAN
+                : r236
+                ? colors.VIOLET
+                : colors.NONE;
+            let blockClassName: string;
+            let svgFilterId: string;
+            switch (color) {
+              case colors.CYAN:
+                blockClassName = styles.cyan;
+                svgFilterId = "cyanShadow";
+                break;
+              case colors.VIOLET:
+                blockClassName = styles.violet;
+                svgFilterId = "violetShadow";
+                break;
+              case colors.MIXED:
+                blockClassName = styles.mixed;
+                svgFilterId = "mixedShadow";
+                break;
+              default:
+                blockClassName = "";
+                svgFilterId = "default";
+                break;
+            }
+            console.log({ blockIndex, r145, r236, color, svgFilterId });
+
             return (
               <SVGRectBlock
                 key={`${row}-${col}`}

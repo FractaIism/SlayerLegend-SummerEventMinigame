@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .overlay {
   position: absolute;
   top: 0;
@@ -23,4 +25,8 @@ $violet: rgba(179, 130, 237, 1);
 
 .violet {
   --color: #{violet};
+}
+
+.mixed {
+  --color: #{color.mix($cyan, $violet)};
 }
