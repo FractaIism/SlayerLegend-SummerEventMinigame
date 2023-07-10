@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import styles from "./board.module.scss";
-import { useContext, ReactNode } from "react";
+import { useContext, ReactNode, MouseEventHandler } from "react";
 import { range } from "lodash";
 import { GlobalVariableContext } from "./context.tsx";
 import { Position } from "./slayer.tsx";
@@ -24,13 +24,14 @@ export function GameBoard({
         width={boardSize}
         height={boardSize}
       />
-      <SVGOverlay setSlayerPosition={setSlayerPosition} />
+      <DecorativeSVGOverlay />
+      <FunctionalSVGOverlay setSlayerPosition={setSlayerPosition} />
       {children}
     </>
   );
 }
 
-function SVGOverlay({
+function FunctionalSVGOverlay({
   setSlayerPosition,
 }: {
   setSlayerPosition: (position: Position) => void;
@@ -39,29 +40,18 @@ function SVGOverlay({
     return validPositions.some(({ row: r, col: c }) => r === row && c === col);
   }
 
-  const { startX, startY, blockSize, gapX, gapY, validPositions } = useContext(
-    GlobalVariableContext,
-  );
+  const { validPositions } = useContext(GlobalVariableContext);
 
-  // range(5).map((row) =>
-  //   range(5).map((col) => blockExists(row, col)
-  //     && console.log(startX+col*(blockSize+gapX), startY+row*(blockSize+gapY))
-  //   )
-  // );
   return (
     <svg className={styles.overlay} width={boardSize} height={boardSize}>
       {range(5).map((row) =>
         range(5).map((col) =>
           blockExists(row, col) ? (
-            <rect
-              className={styles.overlayBlock}
+            <SVGRectBlock
               key={`${row}-${col}`}
-              x={startX + col * (blockSize + gapX)}
-              y={startY + row * (blockSize + gapY)}
-              rx="3px"
-              ry="3px"
-              width={blockSize}
-              height={blockSize}
+              row={row}
+              col={col}
+              className={styles.overlayBlockInvisible}
               onClick={() => setSlayerPosition({ row: row, col: col })}
             />
           ) : null,
@@ -70,3 +60,76 @@ function SVGOverlay({
     </svg>
   );
 }
+
+function DecorativeSVGOverlay() {
+  function blockExists(row: number, col: number) {
+    return validPositions.some(({ row: r, col: c }) => r === row && c === col);
+  }
+
+  const { validPositions } = useContext(GlobalVariableContext);
+
+  return (
+    <svg className={styles.overlay} width={boardSize} height={boardSize}>
+      {range(5).map((row) =>
+        range(5).map((col) =>
+          blockExists(row, col) ? (
+            <SVGRectBlock
+              key={`${row}-${col}`}
+              row={row}
+              col={col}
+              className={styles.overlayBlockVisible}
+            />
+          ) : null,
+        ),
+      )}
+    </svg>
+  );
+}
+
+function SVGRectBlock({
+  row,
+  col,
+  className,
+  onClick = undefined,
+}: {
+  row: number;
+  col: number;
+  className: string;
+  onClick?: () => void;
+}) {
+  const ctx = useContext(GlobalVariableContext);
+  return (
+    <rect
+      className={className}
+      x={ctx.startX + col * (ctx.blockSize + ctx.gapX)}
+      y={ctx.startY + row * (ctx.blockSize + ctx.gapY)}
+      rx="3px"
+      ry="3px"
+      width={ctx.blockSize}
+      height={ctx.blockSize}
+      onClick={onClick ?? (() => null)}
+    />
+  );
+}
+
+// blockExists(row, col) ? (
+//   <rect
+//     className={
+//       isStatic
+//         ? styles.overlayBlockInvisible
+//         : styles.overlayBlockVisible
+//     }
+//     key={`${row}-${col}`}
+//     x={startX + col * (blockSize + gapX)}
+//     y={startY + row * (blockSize + gapY)}
+//     rx="3px"
+//     ry="3px"
+//     width={blockSize}
+//     height={blockSize}
+//     onClick={
+//       setSlayerPosition
+//         ? () => setSlayerPosition({ row: row, col: col })
+//         : () => null
+//     }
+//   />
+// ) : null,
