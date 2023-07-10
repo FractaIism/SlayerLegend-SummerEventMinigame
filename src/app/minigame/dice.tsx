@@ -2,7 +2,15 @@ import diceStyles from "./dice.module.scss";
 import iconStyles from "./icons.module.scss";
 import { range } from "lodash";
 import { ItemI, ItemsContext } from "./context.tsx";
-import { useContext, ReactNode, Fragment } from "react";
+import {
+  useState,
+  useContext,
+  useEffect,
+  ReactNode,
+  Fragment,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { Position } from "./slayer.tsx";
 import { indexToPosition, isDice, positionToIndex, tee } from "./utils.tsx";
 
@@ -11,17 +19,35 @@ export function DiceCalculator({
 }: {
   slayerPosition: Position;
 }) {
+  const [weightedAvg145, setWeightedAvg145] = useState<number>(0);
+  const [weightedAvg236, setWeightedAvg236] = useState<number>(0);
+
   const slayerIndex = positionToIndex(slayerPosition);
+  const highlightedDice = weightedAvg145 > weightedAvg236 ? 145 : 236;
 
   return (
     <div className={diceStyles.calculator}>
       <DiceCalculatorRow>
-        <DiceIcon className={diceStyles.dice_145} />
-        <DiceCalculatorText slayerIndex={slayerIndex} moves={[1, 4, 5]} />
+        <DiceIcon
+          className={diceStyles.dice_145}
+          highlighted={highlightedDice === 145}
+        />
+        <DiceCalculatorText
+          slayerIndex={slayerIndex}
+          moves={[1, 4, 5]}
+          setWeightedAvg={setWeightedAvg145}
+        />
       </DiceCalculatorRow>
       <DiceCalculatorRow>
-        <DiceIcon className={diceStyles.dice_236} />
-        <DiceCalculatorText slayerIndex={slayerIndex} moves={[2, 3, 6]} />
+        <DiceIcon
+          className={diceStyles.dice_236}
+          highlighted={highlightedDice === 236}
+        />
+        <DiceCalculatorText
+          slayerIndex={slayerIndex}
+          moves={[2, 3, 6]}
+          setWeightedAvg={setWeightedAvg236}
+        />
       </DiceCalculatorRow>
     </div>
   );
@@ -31,8 +57,20 @@ function DiceCalculatorRow({ children }: { children: ReactNode }) {
   return <div className={diceStyles.calculatorRow}>{children}</div>;
 }
 
-function DiceIcon({ className }: { className: string }) {
-  return <div className={`${diceStyles.diceIcon} ${className}`}></div>;
+function DiceIcon({
+  className,
+  highlighted,
+}: {
+  className: string;
+  highlighted: boolean;
+}) {
+  return (
+    <div
+      className={`${diceStyles.diceIcon} ${className} ${
+        highlighted ? diceStyles.highlighted : ""
+      }`}
+    ></div>
+  );
 }
 
 type EventuallyReachableItem = ItemI | ItemI[][];
@@ -40,9 +78,11 @@ type EventuallyReachableItem = ItemI | ItemI[][];
 function DiceCalculatorText({
   slayerIndex,
   moves,
+  setWeightedAvg,
 }: {
   slayerIndex: number;
   moves: number[];
+  setWeightedAvg: Dispatch<SetStateAction<number>>;
 }) {
   function getReachableItems(
     items: ItemI[],
@@ -117,6 +157,8 @@ function DiceCalculatorText({
     moves,
   );
   const weightedAvg = computeWeightedAverage(items, slayerIndex, moves);
+
+  useEffect(() => setWeightedAvg(weightedAvg), [setWeightedAvg, weightedAvg]);
 
   return (
     <div className={diceStyles.calculatorText}>
