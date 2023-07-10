@@ -40,7 +40,7 @@ function SVGOverlay({
   }
 
   const { startX, startY, blockSize, gapX, gapY, validPositions } = useContext(
-    GlobalVariableContext
+    GlobalVariableContext,
   );
 
   // range(5).map((row) =>
@@ -58,12 +58,14 @@ function SVGOverlay({
               key={`${row}-${col}`}
               x={startX + col * (blockSize + gapX)}
               y={startY + row * (blockSize + gapY)}
+              rx="3px"
+              ry="3px"
               width={blockSize}
               height={blockSize}
               onClick={() => setSlayerPosition({ row: row, col: col })}
             />
-          ) : null
-        )
+          ) : null,
+        ),
       )}
     </svg>
   );

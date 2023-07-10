@@ -5,5 +5,10 @@
 }
 
 .overlayBlock {
-  fill: rgba(0, 255, 255, 0.407);
+  // fill: rgba(0, 255, 255, 0.407);
+  --cyan: rgba(157, 249, 255, 1.0);
+  --violet: rgba(179, 130, 237, 1.0);
+  fill: none;
+  stroke-width: 3px;
+  stroke: var(--cyan);
 }
