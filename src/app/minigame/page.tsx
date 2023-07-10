@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./page.module.scss";
-import { useState } from "react";
+import { useState, StrictMode } from "react";
 import { Slayer, Position } from "./slayer.tsx";
 import { GameBoard } from "./board.tsx";
 import { Providers } from "./context.tsx";
@@ -15,17 +15,19 @@ export default function Home() {
   });
 
   return (
-    <main className={styles.main}>
-      <Providers>
-        <GameBoard
-          slayerPosition={slayerPosition}
-          setSlayerPosition={setSlayerPosition}
-        >
-          <Slayer position={slayerPosition} />
-        </GameBoard>
-        <Weights />
-        <DiceCalculator slayerPosition={slayerPosition} />
-      </Providers>
-    </main>
+    <StrictMode>
+      <main className={styles.main}>
+        <Providers>
+          <GameBoard
+            slayerPosition={slayerPosition}
+            setSlayerPosition={setSlayerPosition}
+          >
+            <Slayer position={slayerPosition} />
+          </GameBoard>
+          <Weights />
+          <DiceCalculator slayerPosition={slayerPosition} />
+        </Providers>
+      </main>
+    </StrictMode>
   );
 }
