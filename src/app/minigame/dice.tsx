@@ -4,21 +4,14 @@ import { range } from "lodash";
 import { ItemI, ItemsContext } from "./context.tsx";
 import { useContext, ReactNode, Fragment } from "react";
 import { Position } from "./slayer.tsx";
-import { indexToPosition, isDice, tee } from "./utils.tsx";
+import { indexToPosition, isDice, positionToIndex, tee } from "./utils.tsx";
 
 export function DiceCalculator({
   slayerPosition,
 }: {
   slayerPosition: Position;
 }) {
-  const slayerIndex = range(16).find((idx) => {
-    const pos = indexToPosition(idx);
-    return pos.row === slayerPosition.row && pos.col === slayerPosition.col;
-  });
-
-  if (slayerIndex === undefined) {
-    throw `slayer index not found: ${slayerIndex}`;
-  }
+  const slayerIndex = positionToIndex(slayerPosition);
 
   return (
     <div className={diceStyles.calculator}>
