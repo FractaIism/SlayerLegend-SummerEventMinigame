@@ -18,15 +18,28 @@
 
 $cyan: rgba(157, 249, 255, 1);
 $violet: rgba(179, 130, 237, 1);
+$mixed: color.mix($cyan, $violet);
 
 .cyan {
-  --color: #{cyan};
+  --color: #{$cyan};
 }
 
 .violet {
-  --color: #{violet};
+  --color: #{$violet};
 }
 
 .mixed {
-  --color: #{color.mix($cyan, $violet)};
+  --color: #{$mixed};
+}
+
+.cyanShadow {
+  flood-color: $cyan;
+}
+
+.violetShadow {
+  flood-color: $violet;
+}
+
+.mixedShadow {
+  flood-color: $mixed;
 }

@@ -100,10 +100,13 @@ function DecorativeSVGOverlay({
   return (
     <svg className={styles.overlay} width={boardSize} height={boardSize}>
       <filter id="cyanShadow">
-        <feDropShadow dx="0" dy="0" stdDeviation="2" floodColor={"cyan"} />
+        <feDropShadow className={styles.cyanShadow} dx="0" dy="0" stdDeviation="2" />
       </filter>
       <filter id="violetShadow">
-        <feDropShadow dx="0" dy="0" stdDeviation="2" floodColor={"violet"} />
+        <feDropShadow className={styles.violetShadow} dx="0" dy="0" stdDeviation="2" />
+      </filter>
+      <filter id="mixedShadow">
+        <feDropShadow className={styles.mixedShadow} dx="0" dy="0" stdDeviation="2" />
       </filter>
       {range(5).map((row) =>
         range(5).map((col) => {
@@ -139,7 +142,6 @@ function DecorativeSVGOverlay({
                 svgFilterId = "default";
                 break;
             }
-            console.log({ blockIndex, r145, r236, color, svgFilterId });
 
             return (
               <SVGRectBlock
