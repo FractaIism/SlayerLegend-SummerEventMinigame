@@ -26,6 +26,7 @@ export function GameBoard({
         alt="minigame.png"
         width={boardSize}
         height={boardSize}
+        unoptimized
       />
       <DecorativeSVGOverlay slayerPosition={slayerPosition} />
       <FunctionalSVGOverlay setSlayerPosition={setSlayerPosition} />
