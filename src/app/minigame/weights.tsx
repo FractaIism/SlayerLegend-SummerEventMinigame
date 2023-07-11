@@ -1,8 +1,9 @@
 import styles from "./weights.module.scss";
-import iconStyles from './icons.module.scss';
+import iconStyles from "./icons.module.scss";
 import { useContext, useState } from "react";
 import { orderBy } from "lodash";
 import { GlobalVariableContext, ItemsContext } from "./context.tsx";
+import { isDice } from "./utils.tsx";
 
 export function Weights() {
   const [sorted, setSorted] = useState(true);
@@ -36,7 +37,9 @@ function WeightList({ sorted }: { sorted: boolean }) {
   const { blockSize } = useContext(GlobalVariableContext);
   const [items, updateItems] = useContext(ItemsContext);
 
-  let orderedItems = sorted ? orderBy(items, ["weight"], ["desc"]) : items;
+  let orderedItems = (
+    sorted ? orderBy(items, ["weight"], ["desc"]) : items
+  ).filter((item) => !isDice(item));
 
   return (
     <div

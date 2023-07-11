@@ -52,7 +52,7 @@ function ItemsProvider({ children }: { children: ReactNode }) {
     { indexes: [13], weight: 87, className: iconStyles.earth_stone_x1000 },
     { indexes: [11], weight: 77, className: iconStyles.fire_stone_x1000 },
     { indexes: [3], weight: 17, className: iconStyles.water_stone_x1000 },
-    { indexes: [0, 8], weight: 34, className: iconStyles.event_dice_x1 },
+    { indexes: [0, 8], weight: 0, className: iconStyles.event_dice_x1 },
   ]);
 
   return (
