@@ -40,18 +40,18 @@ export const ItemsContext: Context<[ItemI[], Updater<ItemI[]>]> = createContext(
 
 function ItemsProvider({ children }: { children: ReactNode }) {
   const [items, updateItems] = useImmer([
-    { indexes: [9, 14], weight: 11, className: iconStyles.diamond_x100_5000 },
-    { indexes: [1], weight: 58, className: iconStyles.diamond_x500 },
-    { indexes: [15], weight: 75, className: iconStyles.emerald_x150 },
-    { indexes: [2, 7], weight: 90, className: iconStyles.emerald_x30_1500 },
-    { indexes: [10], weight: 23, className: iconStyles.white_feather_x1 },
-    { indexes: [6], weight: 99, className: iconStyles.white_feather_x1_3 },
-    { indexes: [12], weight: 45, className: iconStyles.purple_feather_x1 },
-    { indexes: [4], weight: 14, className: iconStyles.green_feather_x1 },
-    { indexes: [5], weight: 42, className: iconStyles.wind_stone_x1000 },
-    { indexes: [13], weight: 87, className: iconStyles.earth_stone_x1000 },
-    { indexes: [11], weight: 77, className: iconStyles.fire_stone_x1000 },
-    { indexes: [3], weight: 17, className: iconStyles.water_stone_x1000 },
+    { indexes: [9, 14], weight: 25, className: iconStyles.diamond_x100_5000 },
+    { indexes: [1], weight: 5, className: iconStyles.diamond_x500 },
+    { indexes: [15], weight: 5, className: iconStyles.emerald_x150 },
+    { indexes: [2, 7], weight: 25, className: iconStyles.emerald_x30_1500 },
+    { indexes: [10], weight: 5, className: iconStyles.white_feather_x1 },
+    { indexes: [6], weight: 10, className: iconStyles.white_feather_x1_3 },
+    { indexes: [12], weight: 80, className: iconStyles.purple_feather_x1 },
+    { indexes: [4], weight: 100, className: iconStyles.green_feather_x1 },
+    { indexes: [5], weight: 10, className: iconStyles.wind_stone_x1000 },
+    { indexes: [13], weight: 20, className: iconStyles.earth_stone_x1000 },
+    { indexes: [11], weight: 10, className: iconStyles.fire_stone_x1000 },
+    { indexes: [3], weight: 1, className: iconStyles.water_stone_x1000 },
     { indexes: [0, 8], weight: 0, className: iconStyles.event_dice_x1 },
   ]);
 
